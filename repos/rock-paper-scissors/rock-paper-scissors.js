@@ -1,7 +1,14 @@
-function getComChoice(com) {
-    com = (Math.random() * 3);
-    return Math.floor(com);
+let usr;
+
+function getComChoice(com) { 
+    com = (Math.random() * 3); //rng [0,3)
+    return Math.floor(com); //deci -> int return
 }
 
-getComChoice();
+getComChoice(); //rng returns
+
+
+usr = prompt("choose between rock, paper and scissors!") //user choice
+console.log(usr);
+
 

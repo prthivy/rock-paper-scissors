@@ -1,5 +1,3 @@
-let usr;
-
 function getComChoice(com) { 
     com = (Math.random() * 3); //rng [0,3)
     return Math.floor(com); //deci -> int return
@@ -8,17 +6,19 @@ function getComChoice(com) {
 getComChoice(); //rng returns
 
 
+let usr;
 usr = prompt("choose between rock, paper and scissors!") //user choice
 console.log(usr);
 
-if(usr == rock) {
+if(usr == "rock") {
     usr = 0;
 }
-elif (usr == paper) {
+else if (usr == "paper") {
     usr = 1;
 
 }
 
-elif (usr == scissors) {
+else if (usr == "scissors") {
     usr = 2; 
 }
+console.log(usr);

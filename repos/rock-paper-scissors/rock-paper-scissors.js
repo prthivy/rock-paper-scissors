@@ -3,11 +3,11 @@ function getComputerChoice(computer) {
     return Math.floor(computer); //deci -> int return
 }
 
-let actualComputerChoice = getComputerChoice(); //rng returns
+let actualComputerChoice = getComputerChoice(); //store rng choice (num)
 
 function getHumanChoice(human) {
-    human = prompt("choose between rock, paper and scissors!"); //user choice
-    //convert usr choice to number for comparison with com choice
+    human = prompt("choose between rock, paper and scissors!"); //human choice
+    //convert human choice to numb for comp with computer choice
     if(human == "rock") {
         human = 0;
     }
@@ -21,4 +21,6 @@ function getHumanChoice(human) {
     return human; 
 }
 
-let actualHumanChoice = getHumanChoice();
+let actualHumanChoice = getHumanChoice(); //store human choice (num)
+
+actualComputerChoice == actualHumanChoice; //compare

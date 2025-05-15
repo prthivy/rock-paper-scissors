@@ -1,7 +1,3 @@
-let humanScore = 0;
-let computerScore = 0;
-let round_no = 1;
-
 function getComputerChoice() { 
     let computerChoice = (Math.random() * 3); //rng [0,3)
     computerChoice = Math.floor(computerChoice); //deci -> int return
@@ -16,86 +12,106 @@ function getComputerChoice() {
     else if (computerChoice == 2) {
         return "scissors"
     }
-    return computerChoice;
 }
 
 function getHumanChoice() {
     let humanChoice = prompt("choose between rock, paper and scissors!"); //gets human choice
+    if (humanChoice === null) { //define cancel button behaviour
+        return;
+    }
     humanChoice = humanChoice.toLowerCase(); //account for inconsistent casing
 
     while (humanChoice !== "rock" && humanChoice !== "paper" && humanChoice !== "scissors") { //handle invalid choice resolution
         humanChoice = prompt("invalid choice. please select either rock, paper or scissors:");
+            if (humanChoice === null) { 
+                return;
+    }
         humanChoice = humanChoice.toLowerCase();
     } 
     return humanChoice; 
 }
 
-//scoring logic
-function playRound(humanChoice, computerChoice) {
+function playGame() {
 
-    if (humanChoice == "rock" && computerChoice == "scissors") {
-        console.log(`computer chose: ${computerChoice}`);
-        console.log("round won!");
-        humanScore += 1;
-        console.log(`you: ${humanScore}, computer: ${computerScore}.`);
+    let humanScore = 0;
+    let computerScore = 0;
+    let round_no = 1;
+
+    //scoring logic
+    function playRound(humanChoice, computerChoice) {
+
+        if (humanChoice == "rock" && computerChoice == "scissors") {
+            console.log(`computer chose: ${computerChoice}`);
+            console.log("round won!");
+            humanScore += 1;
+            console.log(`you: ${humanScore}, computer: ${computerScore}.`);
+
+        }
+        else if (humanChoice == "rock" && computerChoice == "paper") {
+            console.log(`computer chose: ${computerChoice}`);
+            console.log("round lost..");
+            computerScore += 1;
+            console.log(`you: ${humanScore}, computer: ${computerScore}.`);
+        }
+
+        else if (humanChoice == "paper" && computerChoice == "rock") {
+            console.log(`computer chose: ${computerChoice}`);
+            console.log("round won!");
+            humanScore += 1;
+            console.log(`you: ${humanScore}, computer: ${computerScore}.`);
+        }
+
+        else if (humanChoice == "paper" && computerChoice == "scissors") {
+            console.log(`computer chose: ${computerChoice}`);
+            console.log("round lost..");
+            computerScore += 1;
+            console.log(`you: ${humanScore}, computer: ${computerScore}.`);
+        }
+
+        else if (humanChoice == "scissors" && computerChoice == "paper") {
+            console.log(`computer chose: ${computerChoice}`);
+            console.log("round won!");
+            humanScore += 1;
+            console.log(`you: ${humanScore}, computer: ${computerScore}.`);
+        }
+        else if (humanChoice == "scissors" && computerChoice == "rock") {
+            console.log(`computer chose: ${computerChoice}`);
+            console.log("round lost..");
+            computerScore += 1;
+            console.log(`you: ${humanScore}, computer: ${computerScore}.`);
+        }
+
+        else if (computerChoice == humanChoice) {
+            console.log(`computer chose: ${computerChoice}`);
+            console.log("round tied."); 
+            console.log(`you: ${humanScore}, computer: ${computerScore}.`);
+        }
 
     }
-    else if (humanChoice == "rock" && computerChoice == "paper") {
-        console.log(`computer chose: ${computerChoice}`);
-        console.log("round lost..");
-        computerScore += 1;
-        console.log(`you: ${humanScore}, computer: ${computerScore}.`);
+
+    while (round_no < 6) {  //calls the playRound function until either score reaches 3
+        console.log(`round ${round_no}: `)
+        let computerChoice = getComputerChoice();
+        let humanChoice = getHumanChoice();
+        playRound(humanChoice, computerChoice);
+        round_no += 1; 
     }
 
-    else if (humanChoice == "paper" && computerChoice == "rock") {
-        console.log(`computer chose: ${computerChoice}`);
-        console.log("round won!");
-        humanScore += 1;
-        console.log(`you: ${humanScore}, computer: ${computerScore}.`);
+    //display winner message
+    if (humanScore > computerScore) {
+        console.log("you win the game!")
     }
-    else if (humanChoice == "paper" && computerChoice == "scissors") {
-        console.log(`computer chose: ${computerChoice}`);
-        console.log("round lost..");
-        computerScore += 1;
-        console.log(`you: ${humanScore}, computer: ${computerScore}.`);
+    else if (computerScore > humanScore) {
+        console.log("computer wins the game..")
+    }
+    else if (computerScore == humanScore) {
+        console.log("game tied.")
     }
 
-    else if (humanChoice == "scissors" && computerChoice == "paper") {
-        console.log(`computer chose: ${computerChoice}`);
-        console.log("round won!");
-        humanScore += 1;
-        console.log(`you: ${humanScore}, computer: ${computerScore}.`);
-    }
-    else if (humanChoice == "scissors" && computerChoice == "rock") {
-        console.log(`computer chose: ${computerChoice}`);
-        console.log("round lost..");
-        computerScore += 1;
-        console.log(`you: ${humanScore}, computer: ${computerScore}.`);
-    }
-
-    else if (computerChoice == humanChoice) {
-        console.log(`computer chose: ${computerChoice}`);
-        console.log("round tied."); 
-        console.log(`you: ${humanScore}, computer: ${computerScore}.`);
-    }
 }
 
-while (humanScore < 3 && computerScore < 3) {  //calls the playRound function until either score reaches 3
-    console.log(`round ${round_no}: `)
+playGame();
 
-    let computerChoice = getComputerChoice();
-    let humanChoice = getHumanChoice();
-    playRound(humanChoice, computerChoice);
-    round_no += 1; 
-}
-
-//display winner message
-if (humanScore == 3) {
-    console.log("you win the game!")
-}
-else if (computerScore == 3) {
-    console.log("computer wins the game!")
-}
 
 //personal walkthrough
 
@@ -111,8 +127,9 @@ else if (computerScore == 3) {
 
 //2. logic to get human choice:
     // 2.1 a function which when called, asks user for rock, paper or scissors
+    // 2.1.1 we need to define behaviour if cancel is clicked
     // 2.2 we need to handle invalid inputs. so we write logic that checks if the input is not rock or not paper or not scissors
-    // 2.2.1 we need to keep running this check until the input is valid, so we wrap it around a while loop
+    // 2.2.1 we need to keep running this check until the input is valid, so we wrap it around a while loop, and also contain the cancel-click behaviour code
     // 2.3 a variable to hold the valid string
     // 2.4 modify string to only be lowercase, to resolve inconsistent casing
     // 2.5 specify return value as the variable
@@ -128,9 +145,8 @@ else if (computerScore == 3) {
     // 3.x this function has no return value
     
 //4. logic for playing multiple rounds:
-    // 4.1 the game needs to be played until either score reaches 3 points. 
-    // 4.2 so we need a while loop which will keep calling scoring function with callback functions to human and computer choice as parameters.
-    // 4.2c so we need a while loop which will keep calling scoring function with strings to human and computer choice as params.
-    // 4.x this function runs until either score reaches 3
-
-//5. simple conditional that checks which out of either scores is 3 and declares it the winner
+    // 4.1 the game needs to be played for 5 roundss. 
+    // 4.2 so we need a while loop which keep calling the playround function until round number is 5.
+    // 4.3 we can wrap the entire scoring logic along with the round number and computer score, human score variables into a function 
+    // 4.3.1 declare this function with no params and indent the entire logic for scoring and declaring result
+    // 4.x when this function is called, it'll run for 5 rounds and declare the result

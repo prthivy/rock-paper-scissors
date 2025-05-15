@@ -79,7 +79,7 @@ while (humanScore < 3 && computerScore < 3) {  //calls the playRound function un
 
     let computerChoice = getComputerChoice();
     let humanChoice = getHumanChoice();
-    let playGame = playRound(humanChoice, computerChoice);
+    playRound(humanChoice, computerChoice);
     round_no += 1; 
 }
 

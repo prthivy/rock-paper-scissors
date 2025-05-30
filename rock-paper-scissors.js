@@ -89,7 +89,7 @@ function playGame() {
 
     }
 
-    while (round_no < 6) {  //calls the playRound function until either score reaches 3
+    while (round_no < 6) { 
         console.log(`round ${round_no}: `)
         let computerChoice = getComputerChoice();
         let humanChoice = getHumanChoice();
@@ -97,7 +97,7 @@ function playGame() {
         round_no += 1; 
     }
 
-    //display winner message
+ 
     if (humanScore > computerScore) {
         console.log("you win the game!")
     }
